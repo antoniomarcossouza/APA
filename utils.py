@@ -1,8 +1,11 @@
 """Módulo com funções auxiliares para o projeto"""
-
+import os
 import random
+import sys
 import time
 from typing import Callable
+
+import pandas as pd
 
 from quicksort import quicksort
 
@@ -33,14 +36,29 @@ def create_unordered_list(number_of_elements: int, percentage: int) -> list:
     )
 
 
+def save_results(results: dict):
+    """Salva os resultados em um arquivo csv"""
+
+    df = pd.DataFrame([results])
+
+    file_path = "./results.csv"
+    if not os.path.isfile(file_path):
+        df.to_csv(file_path, index=False)
+        sys.exit()
+    df.to_csv(file_path, mode="a", index=False, header=False)
+
+
 def run_test(array: list, pivot_method: Callable):
     """Executa o quicksort e retorna o tempo de execução"""
 
     start = time.time()
     quicksort(array=array, pivot_fn=pivot_method)
     end = time.time()
-    return {
-        "list_size": len(array),
-        "time": float(f"{end - start:.4f}"),
-        "method": pivot_method.__name__,
-    }
+
+    save_results(
+        results={
+            "list_size": len(array),
+            "time": float(f"{end - start:.4f}"),
+            "method": pivot_method.__name__,
+        }
+    )
