@@ -39,7 +39,6 @@ def parse_arguments():
             "pivot_median",
             "pivot_find",
         ],
-        default="pivot_middle",
         help="Escolhe a função de de escolher o pivô para o quicksort",
     )
 
@@ -64,4 +63,4 @@ if __name__ == "__main__":
     unordered_list = create_unordered_list(
         number_of_elements=elements, percentage=shuffle
     )
-    run_test(array=unordered_list, pivot_method=pivot_middle)
+    run_test(array=unordered_list, pivot_method=pivot_function)
