@@ -1,6 +1,12 @@
 """Módulo com funções auxiliares para o projeto"""
 
 import random
+import time
+from typing import Callable
+
+from quicksort import quicksort
+
+
 def shuffle_percentage(array: list, percentage: int) -> list:
     """Shuffles a percentage of the list"""
 
@@ -17,3 +23,24 @@ def shuffle_percentage(array: list, percentage: int) -> list:
         array[index] = elements_to_shuffle[i]
 
     return array
+
+
+def create_unordered_list(number_of_elements: int, percentage: int) -> list:
+    """Retorna uma lista desordenada de tamanho number_of_elements"""
+
+    return shuffle_percentage(
+        array=list(range(0, number_of_elements)), percentage=percentage
+    )
+
+
+def run_test(array: list, pivot_method: Callable):
+    """Executa o quicksort e retorna o tempo de execução"""
+
+    start = time.time()
+    quicksort(array=array, pivot_fn=pivot_method)
+    end = time.time()
+    return {
+        "list_size": len(array),
+        "time": float(f"{end - start:.4f}"),
+        "method": pivot_method.__name__,
+    }

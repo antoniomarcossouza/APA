@@ -1,8 +1,20 @@
-"""Script to run the quicksort algorithm"""
+"""Código principal do projeto"""
 
 import argparse
+
+from utils import run_test, create_unordered_list
+from quicksort import (
+    pivot_first,
+    pivot_middle,
+    pivot_mean,
+    pivot_random,
+    pivot_median,
+    pivot_find,
+)
+
+
 def parse_arguments():
-    """Parse the arguments passed to the script"""
+    """Interpreta os argumentos passados para o programa"""
 
     parser = argparse.ArgumentParser(description="")
 
@@ -46,5 +58,10 @@ if __name__ == "__main__":
         "pivot_find": pivot_find,
     }[args.pivot]
 
-    number_of_elements = args.elements
-    percentage_to_shuffle = args.shuffle
+    elements = args.elements
+    shuffle = args.shuffle
+
+    unordered_list = create_unordered_list(
+        number_of_elements=elements, percentage=shuffle
+    )
+    run_test(array=unordered_list, pivot_method=pivot_middle)
