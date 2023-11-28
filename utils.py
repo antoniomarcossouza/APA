@@ -7,7 +7,7 @@ from typing import Callable
 
 import pandas as pd
 
-from quicksort import quicksort
+from quicksort import quicksort_iterative
 
 
 def shuffle_percentage(array: list, percentage: int) -> list:
@@ -48,17 +48,18 @@ def save_results(results: dict):
     df.to_csv(file_path, mode="a", index=False, header=False)
 
 
-def run_test(array: list, pivot_method: Callable):
+def run_test(array: list, pivot_method: Callable, shuffle_amount: int) -> None:
     """Executa o quicksort e retorna o tempo de execução"""
 
     start = time.time()
-    quicksort(array=array, pivot_fn=pivot_method)
+    array = quicksort_iterative(array=array, pivot_fn=pivot_method)
     end = time.time()
 
     save_results(
         results={
-            "list_size": len(array),
-            "time": float(f"{end - start:.4f}"),
             "method": pivot_method.__name__,
+            "list_size": len(array),
+            "shuffle_percentage": shuffle_amount,
+            "time_seconds": float(f"{end - start:.4f}"),
         }
     )
