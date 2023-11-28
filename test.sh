@@ -1,12 +1,15 @@
 #!/bin/bash
 
 METHODS=("pivot_first" "pivot_middle" "pivot_mean" "pivot_random")
-VALUES=($((10 ** 4)) $((10 ** 6)))
+VALUES=($((10 ** 1)) $((10 ** 2)) $((10 ** 4)))
+SHUFFLE=(5 25 45)
 
-for i in {1..3}; do
-    for j in ${METHODS[@]}; do
-        for k in ${VALUES[@]}; do
-            python3 ./main.py --elements $k --shuffle 5 --pivot $j
+for j in ${METHODS[@]}; do
+    for k in ${VALUES[@]}; do
+        for l in ${SHUFFLE[@]}; do
+            for i in {1..3}; do
+                python3 ./main.py --elements $k --shuffle $l --pivot $j
+            done
         done
     done
 done
