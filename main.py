@@ -47,7 +47,6 @@ def parse_arguments():
 
 if __name__ == "__main__":
     args = parse_arguments()
-
     pivot_function = {
         "pivot_first": pivot_first,
         "pivot_middle": pivot_middle,
@@ -56,11 +55,8 @@ if __name__ == "__main__":
         "pivot_median": pivot_median,
         "pivot_find": pivot_find,
     }[args.pivot]
-
     elements = args.elements
     shuffle = args.shuffle
 
-    unordered_list = create_unordered_list(
-        number_of_elements=elements, percentage=shuffle
-    )
-    run_test(array=unordered_list, pivot_method=pivot_function)
+    unordered_list = create_unordered_list(number_of_elements=elements, percentage=shuffle)
+    run_test(array=unordered_list, pivot_method=pivot_function, shuffle_amount=shuffle)
