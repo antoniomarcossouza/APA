@@ -27,13 +27,16 @@ def pivot_random(array: list):
 
     return random.choice(array)
 
+def median_of_three(a, b, c):
+    """Auxilia o pivot_median"""
+    
+    return sorted([a, b, c])[1]
 
 def pivot_median(array: list):
-    """Retorna o k-ésimo mínimo da lista"""
+    """Retorna uma mediana de 3 elementos da lista"""
 
-    # TODO: Implementar função
-    return array
-
+    pivot = median_of_three(array[0], array[len(array)//2], array[-1])
+    return pivot
 
 def pivot_find(array: list):
     """?????"""
