@@ -63,8 +63,9 @@ def pivot_median(array):
         return quickselect(array, middle, 0, size - 1)
     return (
         quickselect(array, middle - 1, 0, size - 1)
-        + quickselect(array, middle, 0, size-1)
-)/2
+        + quickselect(array, middle, 0, size - 1)
+    ) / 2
+
 
 def pivot_find(array: list):
     """?????"""
@@ -82,7 +83,11 @@ def quicksort_recursive(array: list, pivot_fn: Callable) -> list:
     left = [x for x in array if x < pivot]
     middle = [x for x in array if x == pivot]
     right = [x for x in array if x > pivot]
-    return (quicksort_recursive(left, pivot_fn) + middle + quicksort_recursive(right, pivot_fn))
+    return (
+        quicksort_recursive(left, pivot_fn)
+        + middle
+        + quicksort_recursive(right, pivot_fn)
+    )
 
 
 def quicksort_iterative(array: list, pivot_fn: Callable) -> list:
