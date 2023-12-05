@@ -74,22 +74,6 @@ def pivot_find(array: list):
     return array
 
 
-def quicksort_recursive(array: list, pivot_fn: Callable) -> list:
-    """Ordena uma lista usando o algoritmo quicksort"""
-
-    if len(array) <= 1:
-        return array
-    pivot = pivot_fn(array)
-    left = [x for x in array if x < pivot]
-    middle = [x for x in array if x == pivot]
-    right = [x for x in array if x > pivot]
-    return (
-        quicksort_recursive(left, pivot_fn)
-        + middle
-        + quicksort_recursive(right, pivot_fn)
-    )
-
-
 def quicksort_iterative(array: list, pivot_fn: Callable) -> list:
     """Ordena uma lista de forma iterativa usando o algoritmo quicksort"""
 
@@ -116,3 +100,19 @@ def quicksort_iterative(array: list, pivot_fn: Callable) -> list:
             stack.append((pivot_index + 1, high))
             stack.append((low, pivot_index - 1))
     return array
+
+
+# def quicksort_recursive(array: list, pivot_fn: Callable) -> list:
+#     """Ordena uma lista usando o algoritmo quicksort"""
+
+#     if len(array) <= 1:
+#         return array
+#     pivot = pivot_fn(array)
+#     left = [x for x in array if x < pivot]
+#     middle = [x for x in array if x == pivot]
+#     right = [x for x in array if x > pivot]
+#     return (
+#         quicksort_recursive(left, pivot_fn)
+#         + middle
+#         + quicksort_recursive(right, pivot_fn)
+#     )
