@@ -78,21 +78,20 @@ def quicksort_recursive(array: list, pivot_fn: Callable) -> list:
     return (quicksort_recursive(left, pivot_fn) + middle + quicksort_recursive(right, pivot_fn))
 
 
-def partition(array: list, low: int, high: int, pivot_fn: Callable) -> int:
-    """Particiona um array em relação a um pivô"""
-
-    pivot = pivot_fn(array=array)
-    i = low - 1
-    for j in range(low, high):
-        if array[j] <= pivot:
-            i += 1
-            array[i], array[j] = array[j], array[i]
-    array[i + 1], array[high] = array[high], array[i + 1]
-    return i + 1
-
-
 def quicksort_iterative(array: list, pivot_fn: Callable) -> list:
     """Ordena uma lista de forma iterativa usando o algoritmo quicksort"""
+
+    def partition(array: list, low: int, high: int, pivot_fn: Callable) -> int:
+        """Particiona um array em relação a um pivô"""
+
+        pivot = pivot_fn(array=array)
+        i = low - 1
+        for j in range(low, high):
+            if array[j] <= pivot:
+                i += 1
+                array[i], array[j] = array[j], array[i]
+        array[i + 1], array[high] = array[high], array[i + 1]
+        return i + 1
 
     if len(array) <= 1:
         return array
