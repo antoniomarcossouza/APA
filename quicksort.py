@@ -50,12 +50,12 @@ def pivot_median(array):
             return array[low]
         pivot_index = random.randint(low, high)
         pivot_index = partition(array, low, high)
+
         if k == pivot_index:
             return array[k]
-        elif k < pivot_index:
+        if k < pivot_index:
             return quickselect(array, k, low, pivot_index - 1)
-        else:
-            return quickselect(array, k, pivot_index + 1, high)
+        return quickselect(array, k, pivot_index + 1, high)
 
     size = len(array)
     middle = size // 2
