@@ -27,9 +27,16 @@ def pivot_random(array: list):
 
     return random.choice(array)
 
+
 def pivot_median(array):
+    """Retorna a mediana da lista"""
+
     def quickselect(array: list, k: int, low: int, high: int):
+        """Retorna o k-ésimo menor elemento de uma lista"""
+
         def partition(array: list, low: int, high: int):
+            """Particiona um array em relação a um pivô"""
+
             pivot = array[high]
             i = low - 1
             for j in range(low, high):
