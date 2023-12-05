@@ -41,7 +41,12 @@ def save_results(results: dict):
 
     df = pd.DataFrame([results])
 
-    file_path = "./results.csv"
+    file_path = f"./data/{results['method']}.csv"
+    file_dir = os.path.dirname(file_path)
+
+    if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+
     if not os.path.isfile(file_path):
         df.to_csv(file_path, index=False)
         sys.exit()
