@@ -27,16 +27,37 @@ def pivot_random(array: list):
 
     return random.choice(array)
 
-def median_of_three(a, b, c):
-    """Auxilia o pivot_median"""
-    
-    return sorted([a, b, c])[1]
+def pivot_median(array):
+    def quickselect(array: list, k: int, low: int, high: int):
+        def partition(array: list, low: int, high: int):
+            pivot = array[high]
+            i = low - 1
+            for j in range(low, high):
+                if array[j] <= pivot:
+                    i += 1
+                    array[i], array[j] = array[j], array[i]
+            array[i + 1], array[high] = array[high], array[i + 1]
+            return i + 1
 
-def pivot_median(array: list):
-    """Retorna uma mediana de 3 elementos da lista"""
+        if low == high:
+            return array[low]
+        pivot_index = random.randint(low, high)
+        pivot_index = partition(array, low, high)
+        if k == pivot_index:
+            return array[k]
+        elif k < pivot_index:
+            return quickselect(array, k, low, pivot_index - 1)
+        else:
+            return quickselect(array, k, pivot_index + 1, high)
 
-    pivot = median_of_three(array[0], array[len(array)//2], array[-1])
-    return pivot
+    size = len(array)
+    middle = size // 2
+    if size % 2 == 1:
+        return quickselect(array, middle, 0, size - 1)
+    return (
+        quickselect(array, middle - 1, 0, size - 1)
+        + quickselect(array, middle, 0, size-1)
+)/2
 
 def pivot_find(array: list):
     """?????"""
