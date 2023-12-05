@@ -31,7 +31,7 @@ def pivot_random(array: list):
 def pivot_median(array):
     """Retorna a mediana da lista"""
 
-    def quickselect(array: list, k: int, low: int, high: int):
+    def quickselect(array: list, k: int):
         """Retorna o k-ésimo menor elemento de uma lista"""
 
         def partition(array: list, low: int, high: int):
@@ -46,25 +46,27 @@ def pivot_median(array):
             array[i + 1], array[high] = array[high], array[i + 1]
             return i + 1
 
-        if low == high:
-            return array[low]
-        pivot_index = random.randint(low, high)
-        pivot_index = partition(array, low, high)
+        low = 0
+        high = len(array) - 1
 
-        if k == pivot_index:
-            return array[k]
-        if k < pivot_index:
-            return quickselect(array, k, low, pivot_index - 1)
-        return quickselect(array, k, pivot_index + 1, high)
+        while True:
+            if low == high:
+                return array[low]
+            pivot_index = random.randint(low, high)
+            pivot_index = partition(array, low, high)
+
+            if k == pivot_index:
+                return array[k]
+            if k < pivot_index:
+                high = pivot_index - 1
+                continue
+            low = pivot_index + 1
 
     size = len(array)
     middle = size // 2
     if size % 2 == 1:
-        return quickselect(array, middle, 0, size - 1)
-    return (
-        quickselect(array, middle - 1, 0, size - 1)
-        + quickselect(array, middle, 0, size - 1)
-    ) / 2
+        return quickselect(array, middle)
+    return (quickselect(array, middle - 1) + quickselect(array, middle)) / 2
 
 
 def pivot_find(array: list):
