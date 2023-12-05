@@ -27,9 +27,16 @@ def pivot_random(array: list):
 
     return random.choice(array)
 
+
 def pivot_median(array):
-    def quickselect(array: list, k: int, low: int, high: int):
+    """Retorna a mediana da lista"""
+
+    def quickselect(array: list, k: int):
+        """Retorna o k-ésimo menor elemento de uma lista"""
+
         def partition(array: list, low: int, high: int):
+            """Particiona um array em relação a um pivô"""
+
             pivot = array[high]
             i = low - 1
             for j in range(low, high):
@@ -39,25 +46,28 @@ def pivot_median(array):
             array[i + 1], array[high] = array[high], array[i + 1]
             return i + 1
 
-        if low == high:
-            return array[low]
-        pivot_index = random.randint(low, high)
-        pivot_index = partition(array, low, high)
-        if k == pivot_index:
-            return array[k]
-        elif k < pivot_index:
-            return quickselect(array, k, low, pivot_index - 1)
-        else:
-            return quickselect(array, k, pivot_index + 1, high)
+        low = 0
+        high = len(array) - 1
+
+        while True:
+            if low == high:
+                return array[low]
+            pivot_index = random.randint(low, high)
+            pivot_index = partition(array, low, high)
+
+            if k == pivot_index:
+                return array[k]
+            if k < pivot_index:
+                high = pivot_index - 1
+                continue
+            low = pivot_index + 1
 
     size = len(array)
     middle = size // 2
     if size % 2 == 1:
-        return quickselect(array, middle, 0, size - 1)
-    return (
-        quickselect(array, middle - 1, 0, size - 1)
-        + quickselect(array, middle, 0, size-1)
-)/2
+        return quickselect(array, middle)
+    return (quickselect(array, middle - 1) + quickselect(array, middle)) / 2
+
 
 def pivot_find(array: list):
     """?????"""
@@ -66,33 +76,20 @@ def pivot_find(array: list):
     return array
 
 
-def quicksort_recursive(array: list, pivot_fn: Callable) -> list:
-    """Ordena uma lista usando o algoritmo quicksort"""
-
-    if len(array) <= 1:
-        return array
-    pivot = pivot_fn(array)
-    left = [x for x in array if x < pivot]
-    middle = [x for x in array if x == pivot]
-    right = [x for x in array if x > pivot]
-    return (quicksort_recursive(left, pivot_fn) + middle + quicksort_recursive(right, pivot_fn))
-
-
-def partition(array: list, low: int, high: int, pivot_fn: Callable) -> int:
-    """Particiona um array em relação a um pivô"""
-
-    pivot = pivot_fn(array=array)
-    i = low - 1
-    for j in range(low, high):
-        if array[j] <= pivot:
-            i += 1
-            array[i], array[j] = array[j], array[i]
-    array[i + 1], array[high] = array[high], array[i + 1]
-    return i + 1
-
-
 def quicksort_iterative(array: list, pivot_fn: Callable) -> list:
     """Ordena uma lista de forma iterativa usando o algoritmo quicksort"""
+
+    def partition(array: list, low: int, high: int, pivot_fn: Callable) -> int:
+        """Particiona um array em relação a um pivô"""
+
+        pivot = pivot_fn(array=array)
+        i = low - 1
+        for j in range(low, high):
+            if array[j] <= pivot:
+                i += 1
+                array[i], array[j] = array[j], array[i]
+        array[i + 1], array[high] = array[high], array[i + 1]
+        return i + 1
 
     if len(array) <= 1:
         return array
@@ -105,3 +102,19 @@ def quicksort_iterative(array: list, pivot_fn: Callable) -> list:
             stack.append((pivot_index + 1, high))
             stack.append((low, pivot_index - 1))
     return array
+
+
+# def quicksort_recursive(array: list, pivot_fn: Callable) -> list:
+#     """Ordena uma lista usando o algoritmo quicksort"""
+
+#     if len(array) <= 1:
+#         return array
+#     pivot = pivot_fn(array)
+#     left = [x for x in array if x < pivot]
+#     middle = [x for x in array if x == pivot]
+#     right = [x for x in array if x > pivot]
+#     return (
+#         quicksort_recursive(left, pivot_fn)
+#         + middle
+#         + quicksort_recursive(right, pivot_fn)
+#     )
