@@ -70,10 +70,21 @@ def pivot_median(array):
 
 
 def pivot_find(array: list):
-    """?????"""
+    left = array[0]
+    right = array[-1]
+    pivot = -1
+    index = left + 1
 
-    # TODO: Implementar função
-    return array
+    while index <= right:
+        if array[index] >= array[index-1]:
+
+            index += 1
+        else:
+            pivot  = index -1
+            break
+
+    return array[pivot]
+
 
 
 def quicksort_iterative(array: list, pivot_fn: Callable) -> list:
