@@ -1,6 +1,6 @@
 #!/bin/bash
 
-METHODS=("pivot_middle" "pivot_mean" "pivot_random")
+METHODS=("pivot_median")
 VALUES=($((10 ** 2)) $((10 ** 3)) $((10 ** 4)) $((10 ** 5)))
 SHUFFLE=(5 25 45)
 
