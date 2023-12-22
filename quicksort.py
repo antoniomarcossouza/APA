@@ -2,6 +2,7 @@
 
 import random
 from typing import Callable
+import numpy as np
 
 
 def pivot_first(array: list):
@@ -31,49 +32,25 @@ def pivot_random(array: list):
 def pivot_median(array):
     """Retorna a mediana da lista"""
 
-    def quickselect(array: list, k: int):
-        """Retorna o k-ésimo menor elemento de uma lista"""
-
-        def partition(array: list, low: int, high: int):
-            """Particiona um array em relação a um pivô"""
-
-            pivot = array[high]
-            i = low - 1
-            for j in range(low, high):
-                if array[j] <= pivot:
-                    i += 1
-                    array[i], array[j] = array[j], array[i]
-            array[i + 1], array[high] = array[high], array[i + 1]
-            return i + 1
-
-        low = 0
-        high = len(array) - 1
-
-        while True:
-            if low == high:
-                return array[low]
-            pivot_index = random.randint(low, high)
-            pivot_index = partition(array, low, high)
-
-            if k == pivot_index:
-                return array[k]
-            if k < pivot_index:
-                high = pivot_index - 1
-                continue
-            low = pivot_index + 1
-
-    size = len(array)
-    middle = size // 2
-    if size % 2 == 1:
-        return quickselect(array, middle)
-    return (quickselect(array, middle - 1) + quickselect(array, middle)) / 2
+    return np.median(array)
 
 
 def pivot_find(array: list):
-    """?????"""
+    """Método para encontrar o pivô de uma lista desordenada"""
 
-    # TODO: Implementar função
-    return array
+    left = array[0]
+    right = array[-1]
+    pivot = -1
+    index = left + 1
+
+    while index <= right:
+        if array[index] >= array[index - 1]:
+            index += 1
+        else:
+            pivot = index - 1
+            break
+
+    return array[pivot]
 
 
 def quicksort_iterative(array: list, pivot_fn: Callable) -> list:

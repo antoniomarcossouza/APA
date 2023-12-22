@@ -1,7 +1,7 @@
 #!/bin/bash
 
-METHODS=("pivot_first" "pivot_middle" "pivot_mean" "pivot_random")
-VALUES=($((10 ** 4)) $((10 ** 5)) $((10 ** 6)) $((10 ** 7)) $((10 ** 8)))
+METHODS=("pivot_median")
+VALUES=($((10 ** 2)) $((10 ** 3)) $((10 ** 4)) $((10 ** 5)))
 SHUFFLE=(5 25 45)
 
 for j in ${METHODS[@]}; do
